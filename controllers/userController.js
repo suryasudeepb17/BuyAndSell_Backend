@@ -6,17 +6,17 @@ userController.getAllItems = async (req, res) =>
 {
     if(req.query.type=="lost")
     {
-        const users = await User.find({type:"lost"}).sort({ date: -1 });
+        const users = await User.find({type:"lost",acceptedTo: { $eq: "" }}).sort({ date: -1 });
         res.json(users);
     }
     else if(req.query.type=="found")
     {
-        const users = await User.find({type:"found"}).sort({ date: -1 });
+        const users = await User.find({type:"found",acceptedTo: { $eq: "" }}).sort({ date: -1 });
         res.json(users);
     }
     else
     {
-        const users = await User.find({type:"sell"}).sort({ date: -1 });
+        const users = await User.find({type:"sell",acceptedTo: { $eq: "" }}).sort({ date: -1 });
         res.json(users);
     }
     
@@ -82,37 +82,37 @@ userController.getSellType=async (req,res) => {
         {
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({type:"sell"}).sort({ date: -1 });
+                const users = await User.find({type:"sell",acceptedTo: { $eq: "" } }).sort({ date: -1 });
                 console.log(" 1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({type:"sell",category:category}).sort({ date: -1 });
+                const users = await User.find({type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ date: -1 });
                 console.log(" 2 ");
                 res.json(users);
             }
             else if(sort=='pHtL' && category=='all')
             {
-                const users = await User.find({type:"sell"}).sort({ sPrice: -1 });
+                const users = await User.find({type:"sell",acceptedTo: { $eq: "" } }).sort({ sPrice: -1 });
                 console.log("3 ");
                 res.json(users);
             }
             else if(sort=='pHtL' && category!='all')
             {
-                const users = await User.find({type:"sell",category:category}).sort({ sPrice: -1 });
+                const users = await User.find({type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ sPrice: -1 });
                 console.log("4 ");
                 res.json(users);
             }
             else if(sort=='pLtH' && category=='all')
             {
-                const users = await User.find({type:"sell"}).sort({ sPrice: 1 });
+                const users = await User.find({type:"sell",acceptedTo: { $eq: "" } }).sort({ sPrice: 1 });
                 console.log(" 5 ");
                 res.json(users);
             }
             else
             {
-                const users = await User.find({type:"sell",category:category}).sort({ sPrice: 1 });
+                const users = await User.find({type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ sPrice: 1 });
                 console.log(" 6 ");
                 res.json(users);
             }
@@ -123,37 +123,37 @@ userController.getSellType=async (req,res) => {
             const searchTerm = new RegExp(searchTerms.join("|"), "i");
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm } ,type:"sell"}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm } ,type:"sell",acceptedTo: { $eq: "" } }).sort({ date: -1 });
                 console.log(" s1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm }, type:"sell",category:category}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm }, type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ date: -1 });
                 console.log(" s2 ");
                 res.json(users);
             }
             else if(sort=='pHtL' && category=='all')
             {
-                const users = await User.find({product: { $regex: searchTerm },type:"sell"}).sort({ sPrice: -1 });
+                const users = await User.find({product: { $regex: searchTerm },type:"sell",acceptedTo: { $eq: "" } }).sort({ sPrice: -1 });
                 console.log("s3 ");
                 res.json(users);
             }
             else if(sort=='pHtL' && category!='all')
             {
-                const users = await User.find({product: { $regex: searchTerm },type:"sell",category:category}).sort({ sPrice: -1 });
+                const users = await User.find({product: { $regex: searchTerm },type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ sPrice: -1 });
                 console.log("s4 ");
                 res.json(users);
             }
             else if(sort=='pLtH' && category=='all')
             {
-                const users = await User.find({product: { $regex: searchTerm },type:"sell"}).sort({ sPrice: 1 });
+                const users = await User.find({product: { $regex: searchTerm },type:"sell",acceptedTo: { $eq: "" } }).sort({ sPrice: 1 });
                 console.log(" s5 ");
                 res.json(users);
             }
             else
             {
-                const users = await User.find({product: { $regex: searchTerm },type:"sell",category:category}).sort({ sPrice: 1 });
+                const users = await User.find({product: { $regex: searchTerm },type:"sell",category:category,acceptedTo: { $eq: "" } }).sort({ sPrice: 1 });
                 console.log(" s6 ");
                 res.json(users);
             }
@@ -177,13 +177,13 @@ userController.getLostType=async (req,res) => {
         {
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({type:"lost"}).sort({ date: -1 });
+                const users = await User.find({type:"lost",acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" 1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({type:"lost",category:category}).sort({ date: -1 });
+                const users = await User.find({type:"lost",category:category,acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" 2 ");
                 res.json(users);
             }
@@ -194,13 +194,13 @@ userController.getLostType=async (req,res) => {
             const searchTerm = new RegExp(searchTerms.join("|"), "i");
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm } ,type:"lost"}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm } ,type:"lost",acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" s1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm }, type:"lost",category:category}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm }, type:"lost",category:category,acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" s2 ");
                 res.json(users);
             }
@@ -223,13 +223,13 @@ userController.getFoundType=async (req,res) => {
         {
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({type:"found"}).sort({ date: -1 });
+                const users = await User.find({type:"found",acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" 1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({type:"found",category:category}).sort({ date: -1 });
+                const users = await User.find({type:"found",category:category,acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" 2 ");
                 res.json(users);
             }
@@ -240,13 +240,13 @@ userController.getFoundType=async (req,res) => {
             const searchTerm = new RegExp(searchTerms.join("|"), "i");
             if( sort=='latest' && category=='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm } ,type:"found"}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm } ,type:"found",acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" s1");
                 res.json(users);
             }
             else if(sort=='latest' && category!='all')
             {
-                const users = await User.find({ product: { $regex: searchTerm }, type:"found",category:category}).sort({ date: -1 });
+                const users = await User.find({ product: { $regex: searchTerm }, type:"found",category:category,acceptedTo: { $eq: "" }}).sort({ date: -1 });
                 console.log(" s2 ");
                 res.json(users);
             }
@@ -300,19 +300,19 @@ userController.getWishList=async (req, res) =>{
     try{
         if(query=="lost")
         {
-            const resp = await User.find({ wishlist: { $in: [email] },type:"lost" }).sort({ date: -1 });
+            const resp = await User.find({ wishlist: { $in: [email] },type:"lost" ,acceptedTo: { $eq: "" }}).sort({ date: -1 });
             console.log(resp);
             res.json(resp);
         }
         else if(query=="found")
         {
-            const resp = await User.find({ wishlist: { $in: [email] },type:"found" }).sort({ date: -1 });
+            const resp = await User.find({ wishlist: { $in: [email] },type:"found",acceptedTo: { $eq: "" }}).sort({ date: -1 });
             console.log(resp);
             res.json(resp);
         }
         else if(query=="sell")
         {
-            const resp = await User.find({ wishlist: { $in: [email] },type:"sell" }).sort({ date: -1 });
+            const resp = await User.find({ wishlist: { $in: [email] },type:"sell" ,acceptedTo: { $eq: "" }}).sort({ date: -1 });
             console.log(resp);
             res.json(resp);
         }
@@ -336,7 +336,6 @@ userController.yourUploads=async (req, res) =>{
     catch(error)
     {
         console.log(error);
-        res.json("");
     }
 }
 
@@ -348,6 +347,62 @@ userController.deleteThis=async (req, res) =>{
         console.log(resp);
         res.json(resp);
         
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.json("");
+    }
+}
+
+userController.accept=async(req,res)=>{
+    const id=req.body.id;
+    const accept=req.body.accept
+    console.log(id+" "+accept);
+    console.log(typeof(id)+" "+typeof(accept));
+    try{
+        const resp=await User.findOneAndUpdate(
+            { _id: id },
+            { acceptedTo: accept },
+            { new: true }
+        )
+        console.log(resp);
+        res.json(resp);
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
+
+userController.yourOrders =async(req,res)=>{
+    const email=req.body.email;
+    console.log(req.body);
+    try{
+        const resp = await User.find({ customers: { $in: [email] }}).sort({ date: -1 });
+        console.log(resp);
+        res.json(resp);
+        
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.json("");
+    }
+}
+
+userController.cancelOrder=async(req,res)=>{
+    const id=req.body.id;
+    const email=req.body.email;
+    try
+    {
+        const resp=await User.findOneAndUpdate(
+            { _id: id },
+            { $pull: { customers: { $in: email } } },
+            { new: true }
+        )
+        console.log(resp);
+        res.json(resp);
     }
     catch(error)
     {
